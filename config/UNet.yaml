@@ -32,13 +32,13 @@ base: &base
   num_data_workers: 2 # number of dataloader worker threads per proc
   N_out_channels: 5
   # HDF5 files for PyTorch native dataloader
-  train_path: '/data/downsamp_2048crop_train.h5'
-  val_path: '/data/downsamp_1024crop_valid.h5'
+  train_path: 'downsamp_2048crop_train.h5'
+  val_path: 'downsamp_1024crop_valid.h5'
   # numpy files for DALI dataloader
-  train_path_npy_data: '/data/downsamp_2048crop_train_data.npy'
-  train_path_npy_label: '/data/downsamp_2048crop_train_label.npy'
-  val_path_npy_data: '/data/downsamp_1024crop_valid_data.npy'
-  val_path_npy_label: '/data/downsamp_1024crop_valid_label.npy'
+  train_path_npy_data: 'downsamp_2048crop_train_data.npy'
+  train_path_npy_label: 'downsamp_2048crop_train_label.npy'
+  val_path_npy_data: 'downsamp_1024crop_valid_data.npy'
+  val_path_npy_label: 'downsamp_1024crop_valid_label.npy'
   use_cache: None # set this to a cache dir (e.g., NVMe on CoriGPU) if you copied data there
 
 # A short config for testing/profiling on a single A100
@@ -106,13 +106,13 @@ base_sm: &base_sm
 
   # Data
   # HDF5 files for PyTorch native dataloader
-  train_path: '/gpfs/alpine/stf011/world-shared/atsaris/SC22_tutorial_data/downsamp_2048crop_train.h5'
-  val_path: '/gpfs/alpine/stf011/world-shared/atsaris/SC22_tutorial_data/downsamp_1024crop_valid.h5'
+  train_path: 'downsamp_2048crop_train.h5'
+  val_path: 'downsamp_1024crop_valid.h5'
   # numpy files for DALI dataloader
-  train_path_npy_data: '/gpfs/alpine/stf011/world-shared/atsaris/SC22_tutorial_data/downsamp_2048crop_train_data.npy'
-  train_path_npy_label: '/gpfs/alpine/stf011/world-shared/atsaris/SC22_tutorial_data/downsamp_2048crop_train_label.npy'
-  val_path_npy_data: '/gpfs/alpine/stf011/world-shared/atsaris/SC22_tutorial_data/downsamp_1024crop_valid_data.npy'
-  val_path_npy_label: '/gpfs/alpine/stf011/world-shared/atsaris/SC22_tutorial_data/downsamp_1024crop_valid_label.npy'
+  train_path_npy_data: 'downsamp_2048crop_train_data.npy'
+  train_path_npy_label: 'downsamp_2048crop_train_label.npy'
+  val_path_npy_data: 'downsamp_1024crop_valid_data.npy'
+  val_path_npy_label: 'downsamp_1024crop_valid_label.npy'
 
 # A short config for testing/profiling on a single V100
 shorter_sm: &shorter_sm

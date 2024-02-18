@@ -1,4 +1,10 @@
-FROM nvcr.io/nvidia/pytorch:22.10-py3
+FROM nvcr.io/nvidia/pytorch:24.01-py3
+
+# Install OpenSSH server
+RUN apt-get update \
+  && apt-get install -yqq --no-install-recommends openssh-server \
+  && rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /run/sshd
 
 # Upgrade pip
 RUN python -m pip install -U setuptools pip

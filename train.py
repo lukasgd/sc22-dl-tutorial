@@ -183,6 +183,8 @@ def train(params, args, local_rank, world_rank, world_size):
 if __name__ == '__main__':
 
   parser = argparse.ArgumentParser()
+  parser.add_argument("--expdir", type=str, help='Logs directory')
+  parser.add_argument("--datadir", default='/iopsstor/scratch/cscs/lukasd/ds/tutorials/sc22_data', type=str, help='Path to data directory')
   parser.add_argument("--run_num", default='00', type=str, help='tag for indexing the current experiment')
   parser.add_argument("--yaml_config", default='./config/UNet.yaml', type=str, help='path to yaml file containing training configs')
   parser.add_argument("--config", default='base', type=str, help='name of desired config in yaml file')
@@ -208,6 +210,13 @@ if __name__ == '__main__':
   run_num = args.run_num
 
   params = YParams(os.path.abspath(args.yaml_config), args.config)
+
+  # Update dataset paths in config
+  params.update({
+      name: os.path.join(args.datadir, path)
+      for name, path in params.params.items()
+      if '_path' in name
+  })
 
   # Update config with modified args
   # set up amp
@@ -257,7 +266,7 @@ if __name__ == '__main__':
       params.local_batch_size = params.global_batch_size//world_size
 
   # Set up directory
-  baseDir = params.expdir
+  baseDir = args.expdir
   expDir = os.path.join(baseDir, args.config+'/%dGPU/'%(world_size)+str(run_num)+'/')
   if  world_rank==0:
     if not os.path.isdir(expDir):

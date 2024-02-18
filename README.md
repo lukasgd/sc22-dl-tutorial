@@ -120,11 +120,15 @@ the validation dataset in 10 epochs. This takes around 2 hours to run, so to sav
 We want to compare our training results against the `base` config baseline, and TensorBoard makes this easy as long as all training runs are stored in the same place. 
 To copy the example TensorBoard log to the scratch directory where our training jobs will output their logs, do
 ```
-mkdir -p $SCRATCH/sc22-dl-tutorial/logs
-cp -r ./example_logs/base $SCRATCH/sc22-dl-tutorial/logs
+mkdir -p logs
+cp -r ./example_logs/base logs
 ```
 
-To view results in TensorBoard, open the [`start_tensorboard.ipynb`](start_tensorboard.ipynb) notebook and follow the instructions in it to launch a TensorBoard session in your browser. Once you have TensorBoard open, you should see a dashboard with data for the loss values, learning rate, and average iterations per second. Looking at the validation loss for the `base` config, you should see the following training curve:
+To view results in TensorBoard, run
+```
+sbatch ./start_tensorboard.sh
+```
+and follow the instructions in the logs to use port-forwarding to your client machine and launch a TensorBoard session in your browser. Once you have TensorBoard open, you should see a dashboard with data for the loss values, learning rate, and average iterations per second. Looking at the validation loss for the `base` config, you should see the following training curve:
 ![baseline training](tutorial_images/baseline_tb.png)
 
 As our training with the `short` config runs, it should also dump the training metrics to the TensorBoard directory, and TensorBoard will parse the data and display it for you. You can hit the refresh button in the upper-right corner of TensorBoard to update the plots with the latest data.

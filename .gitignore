@@ -3,3 +3,8 @@ __pycache__/
 *.slr
 ./joblogs
 .ipynb_checkpoints/
+benchy-run*
+benchy_output.json
+weak_scale*
+logs/
+*.nsys-rep
