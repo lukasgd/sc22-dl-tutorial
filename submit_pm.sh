@@ -1,14 +1,14 @@
 #!/bin/bash 
 #SBATCH -A csstaff
 #SBATCH --ntasks-per-node 4
-##SBATCH --gpus-per-node 4
+#SBATCH --gpus-per-node 4
 #SBATCH --time=0:15:00
 #SBATCH -J pm-crop64
 #SBATCH -o logs/%x-%j.out
 
 environment=$(realpath env/ngc-sc22-dl-tutorial-24.05.toml)
 
-DATADIR=/mchstor2/scratch/cscs/lukasd/tutorials/sc22_data
+DATADIR=/iopsstor/scratch/cscs/lukasd/ds/tutorials/sc22_data
 LOGDIR=logs
 mkdir -p ${LOGDIR}
 args="--expdir ${LOGDIR} --datadir ${DATADIR} ${@}"
@@ -49,6 +49,6 @@ srun -ul --environment=${environment} ${ENROOT_ENTRYPOINT} \
     else
         DEBUG_CMD=\"\"
     fi
-    CUDA_VISIBLE_DEVICES=\${SLURM_LOCALID} ${PROFILE_CMD} python \${DEBUG_CMD} train.py ${args}
+    ${PROFILE_CMD} python \${DEBUG_CMD} train.py ${args}
     "
 rm benchy-run-${SLURM_JOBID}.yaml
