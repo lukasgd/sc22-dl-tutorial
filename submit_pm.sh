@@ -1,5 +1,4 @@
 #!/bin/bash 
-##SBATCH -p nvgpu 
 #SBATCH -A csstaff
 #SBATCH --ntasks-per-node 4
 ##SBATCH --gpus-per-node 4

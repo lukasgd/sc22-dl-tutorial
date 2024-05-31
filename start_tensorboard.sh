@@ -1,5 +1,4 @@
 #!/bin/bash
-##SBATCH -p nvgpu
 #SBATCH -A csstaff
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
