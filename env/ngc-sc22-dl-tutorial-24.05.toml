@@ -1,13 +1,14 @@
-image = "/iopsstor/scratch/cscs/lukasd/enroot/lukasgd+ngc-sc22-dl-tutorial+24.01.sqsh"
+image = "/bret/scratch/cscs/lukasd/images/lukasgd+ngc-sc22-dl-tutorial+24.05.sqsh"
 
 mounts = [
-        "/iopsstor/scratch/cscs:/iopsstor/scratch/cscs",
+        "/bret/scratch/cscs:/bret/scratch/cscs",
+        "/mchstor2:/mchstor2",
         "/users/lukasd/.ssh/cscs-key.pub:/users/lukasd/.ssh/authorized_keys",
         "/users/lukasd/.vscode-server:/users/lukasd/.vscode-server",
         "/users/lukasd/.wget-hsts:/users/lukasd/.wget-hsts"
 ]
 
-workdir = "/iopsstor/scratch/cscs/lukasd/llm/sc22-dl-tutorial"
+workdir = "/bret/scratch/cscs/lukasd/llm/sc22-dl-tutorial"
 
 writable = true
 

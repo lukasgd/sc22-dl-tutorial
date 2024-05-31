@@ -75,8 +75,8 @@ def capture_model(params, model, loss_func, lambda_rho, scaler, capture_stream, 
 def train(params, args, local_rank, world_rank, world_size):
   # set device and benchmark mode
   torch.backends.cudnn.benchmark = True
-  torch.cuda.set_device(local_rank)
-  device = torch.device('cuda:%d'%local_rank)
+  torch.cuda.set_device(local_rank % torch.cuda.device_count())
+  device = torch.device('cuda:%d'% (local_rank % torch.cuda.device_count()))
 
   # get data loader
   logging.info('rank %d, begin data loader init'%world_rank)
@@ -95,7 +95,7 @@ def train(params, args, local_rank, world_rank, world_size):
   capture_stream = torch.cuda.Stream()
   with torch.cuda.stream(capture_stream):
     if params.distributed:
-      model = DistributedDataParallel(model, device_ids=[local_rank])
+      model = DistributedDataParallel(model, device_ids=[local_rank % torch.cuda.device_count()])
   capture_stream.synchronize()
 
   if params.enable_apex:

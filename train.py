@@ -24,8 +24,8 @@ import apex.optimizers as aoptim
 def train(params, args, local_rank, world_rank, world_size):
   # set device and benchmark mode
   torch.backends.cudnn.benchmark = True
-  torch.cuda.set_device(local_rank)
-  device = torch.device('cuda:%d'%local_rank)
+  torch.cuda.set_device(local_rank % torch.cuda.device_count())
+  device = torch.device('cuda:%d'% (local_rank % torch.cuda.device_count()))
 
   # get data loader
   logging.info('rank %d, begin data loader init'%world_rank)
@@ -40,12 +40,12 @@ def train(params, args, local_rank, world_rank, world_size):
     scaler = GradScaler()
   if params.distributed and not args.noddp:
     if args.disable_broadcast_buffers: 
-      model = DistributedDataParallel(model, device_ids=[local_rank],
+      model = DistributedDataParallel(model, device_ids=[local_rank % torch.cuda.device_count()],
                                     bucket_cap_mb=args.bucket_cap_mb,
                                     broadcast_buffers=False,
                                     gradient_as_bucket_view=True)
     else:
-      model = DistributedDataParallel(model, device_ids=[local_rank],
+      model = DistributedDataParallel(model, device_ids=[local_rank % torch.cuda.device_count()],
                                     bucket_cap_mb=args.bucket_cap_mb)
 
   if params.enable_apex:

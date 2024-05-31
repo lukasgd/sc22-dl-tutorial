@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p nvgpu
+##SBATCH -p nvgpu
 #SBATCH -A csstaff
 #SBATCH --time=00:05:00
 #SBATCH --nodes=1
@@ -7,7 +7,7 @@
 #SBATCH -J pm-crop64-tensorboard
 #SBATCH -o logs/%x-%j.out
 
-environment=$(realpath env/ngc-sc22-dl-tutorial-24.01.toml)
+environment=$(realpath env/ngc-sc22-dl-tutorial-24.05.toml)
 
 LOGDIR=logs
 
